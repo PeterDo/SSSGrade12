@@ -1,0 +1,30 @@
+Oct 17th-Captians Log
+
+	Today we started to work on our projects. We decided to use the project we have been working on since last
+year
+
+Oct 20th-Captians Log
+
+	Grondin told us to try and load in sprite sheets and use that istead of using single pictures. 
+-Started to work on trying to get menu load outs and Basic Ai for our enemy.
+
+Oct 21st-Captians Log
+	Max's sister showed up to talk to us about Uni Of Waterloo.
+	
+Oct 22nd-Captians Log
+	We tried to get the sprite sheet to work but could not because I was looking at JavaScript code instead
+of Java code. I didn't notice until a week later.
+
+Oct 27th~30th-Captians Log
+
+	We got the menu to work and switch through the different panels through button pressing, and got an image
+ to appear behind the image.
+
+	We got our monster to follow the character around, and change oriantation depending on what side the
+character was on.
+
+Nov 1st-13th-Captions Log
+
+	We got our Ai to work into the game, and changed the monster we had into a pet duck.
+We also got the Github to work, and made animations for the duck. We are struggling to figure out how to get the
+menu to work by pressing the "esc" button in our game.
