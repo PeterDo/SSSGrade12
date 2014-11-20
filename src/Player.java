@@ -9,10 +9,10 @@ public class Player extends AnimatedObject {
 // verables
 // beta tester peter,austin
 // artist peter
+    
     FraMain fraMain;
-    private Image img;
-    private Animation anim;
-    int PlayerX, rock1X, rock2X, nRock1HitCounter;
+    private Image imgPLayer;
+    int PlayerX, rock1X, rock2, nRock1HitCounter;
     long time;
     private final int SPEED = 6, GRAV = 1;
     boolean isJumping, release_R, release_L, isFalling, isRock1destroyed, isRunning;
@@ -29,11 +29,11 @@ public class Player extends AnimatedObject {
 
 // player image and place on the stage and other verable definations 
     public Player() {
+        
         super(350, 238);
 
         setupAnimations();
         rock1X = 800;
-        rock2X = 1200;
         Xmin = 350;
         Xmax = 450;
         PlayerX = 350;
@@ -133,16 +133,16 @@ public class Player extends AnimatedObject {
 
         if (keyPressed) {
             Animation animationForCurrentAction = getAnimationFor(currentAction);
-            img = animationForCurrentAction.getCurrentFrame().getImage();
+            imgPLayer = animationForCurrentAction.getCurrentFrame().getImage();
             animationForCurrentAction.advanceFrame();
         } else {
             if (goingRight) {
-                img = i13.getImage();
+                imgPLayer = i13.getImage();
             } else {
-                img = i14.getImage();
+                imgPLayer = i14.getImage();
             }
         }
-        return img;
+        return imgPLayer;
     }
     // check what key is pressed
     /*public void esc(KeyEvent e){
@@ -334,7 +334,7 @@ public class Player extends AnimatedObject {
         return false;
     }
 
-    private String frameImageFilename(String filenameBase, int i, String imageType) {
+    public String frameImageFilename(String filenameBase, int i, String imageType) {
         // "walking_R", 1, "png" => "walking_R_f1.png"
         return filenameBase + "_f" + i + "." + imageType;
     }

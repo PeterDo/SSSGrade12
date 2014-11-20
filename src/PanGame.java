@@ -1,3 +1,4 @@
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -10,24 +11,28 @@ import javax.swing.*;
 
 public class PanGame extends JPanel implements ActionListener {
 
-    private PetDuck m1;
-    private int nPetDuckX = 1400;
+    private PetDuck petDuck;
+    public int nPetDuckX = 1400;
     public boolean isFollowing = false, isChasing = false;
     static boolean drawn = false;
-    final private Player p;
+    final private Player player;
     final private Timer timer;
     int x;
     int y;
     private Image background, PlatForm1, PlatForm2, rock1, RockBreaking_f1, RockBreaking_f2,
-            RockBreaking_f3, Tree1, Tree2, Tree3, Grass, backGround2, BigTree, PetDuckyL, PetDuckyR;
+            RockBreaking_f3, Tree1, Tree2, Tree3, Grass, backGround2, BigTree, CurentDuckImg;
     Image arnRockBreaking[] = new Image[5];
+    JButton btnEsc = new JButton("esc");
     // loading in the background image and set (timer/ speed) of the movment of the background 
 
     public PanGame() {
         // add the button
 
+        btnEsc.setBounds(20, 20, 100, 50);
+        add(btnEsc);
         //super();
-        p = new Player();
+        player = new Player();
+        petDuck = new PetDuck();
         addKeyListener(new ActionListener());
         setFocusable(true);
         ImageIcon i1 = new ImageIcon("peter's background.png");
@@ -43,8 +48,6 @@ public class PanGame extends JPanel implements ActionListener {
         ImageIcon i12 = new ImageIcon("CurruptGrassBlock.png");
         ImageIcon i13 = new ImageIcon("currupt background.png");
         ImageIcon i14 = new ImageIcon("BigTree.png");
-        ImageIcon i15 = new ImageIcon("PetDuckyL.png");
-        ImageIcon i16 = new ImageIcon("PetDuckyR.png");
 
         background = i1.getImage();
         backGround2 = i13.getImage();
@@ -56,8 +59,6 @@ public class PanGame extends JPanel implements ActionListener {
         Tree3 = i11.getImage();
         Grass = i12.getImage();
         BigTree = i14.getImage();
-        PetDuckyL = i15.getImage();
-        PetDuckyR = i16.getImage();
         timer = new Timer(80, this);
         timer.start();
 
@@ -65,22 +66,30 @@ public class PanGame extends JPanel implements ActionListener {
         arnRockBreaking[1] = i6.getImage();
         arnRockBreaking[2] = i7.getImage();
         arnRockBreaking[3] = i8.getImage();
+
+
     }
 
     public void actionPerformed(ActionEvent arg0) {
-        p.move();
+        player.move();
         repaint();
-        PetDuckMovement_AI();
+
+
     }
 
     public void paint(Graphics g) {
 
+
+
         // draw the background image to the stage
         //super.paint(g);
         // System.out.println(new Date());
-        x = p.getX();
-        y = p.getY();
+        x = player.getX();
+        y = player.getY();
+        // gets the current duck image from the Petduck class
+        CurentDuckImg = petDuck.GetImage(x, nPetDuckX);
         Graphics2D g2d = (Graphics2D) g;
+
 
         //System.out.println("Drawing background at: " + (350 - p.getX()));
         g2d.drawImage(backGround2, 350 - x, 0, null);
@@ -109,49 +118,21 @@ public class PanGame extends JPanel implements ActionListener {
         g2d.drawImage(PlatForm1, 750 - x, 220, null);
         g2d.drawImage(PlatForm2, 950 - x, 220, null);
         //draws the player
-        g2d.drawImage(p.getImage(), 350, y, null);
+        g2d.drawImage(player.getImage(), 350, y, null);
         // draw a bunch of tree#1's
         int tree1Placement = 1300;
         for (int treeCounter = 0; treeCounter < 5; treeCounter++) {
             g2d.drawImage(Tree1, tree1Placement - x, 30, null);
             tree1Placement = tree1Placement + 300;
         }
-        // draws monster#1
-        if ((x + 351) > nPetDuckX) {
-            g2d.drawImage(PetDuckyR, nPetDuckX - x, y + 45, null);
-        } else {
-            g2d.drawImage(PetDuckyL, nPetDuckX - x, y + 45, null);
-        }
-        // draws the rock
-        if (p.isRock1destroyed == false) {
-            g2d.drawImage(arnRockBreaking[p.nRock1HitCounter], 1150 - x, 242, null);
-            if (p.isRock1destroyed == true) {
-                g2d.drawImage(arnRockBreaking[3], 1150 - x, 240, null);
-            }
-        }
-    }
+        // draws the duck
+        g2d.drawImage(CurentDuckImg, (1000 - x), y, null);
 
-    public void PetDuckMovement_AI() {
-        if (isChasing == false) {
-            if ((x + 315) > nPetDuckX && (x + 315) < (nPetDuckX + 200)) {
-                nPetDuckX += 5;
-                isFollowing = true;
-            } else if ((x + 400) < nPetDuckX && (x + 315) > (nPetDuckX - 250)) {
-                nPetDuckX -= 5;
-                isFollowing = true;
-            } else {
-                isFollowing = false;
-            }
-        }
-        if (isFollowing == false) {
-            if ((x + 315) > nPetDuckX&& (x + 315) > (nPetDuckX + 50)) {
-                nPetDuckX += 10;
-                isChasing = true;
-            } else if ((x + 400) < nPetDuckX&& (x + 315) < (nPetDuckX - 150)) {
-                nPetDuckX -= 10;
-                isChasing = true;
-            }else{
-                isChasing=false;
+        // draws the rock
+        if (player.isRock1destroyed == false) {
+            g2d.drawImage(arnRockBreaking[player.nRock1HitCounter], 1150 - x, 242, null);
+            if (player.isRock1destroyed == true) {
+                g2d.drawImage(arnRockBreaking[3], 1150 - x, 240, null);
             }
         }
     }
@@ -160,11 +141,11 @@ public class PanGame extends JPanel implements ActionListener {
         // set key pressed and release actions 
 
         public void keyReleased(KeyEvent e) {
-            p.keyReleased(e);
+            player.keyReleased(e);
         }
 
         public void keyPressed(KeyEvent e) {
-            p.keyPressed(e);
+            player.keyPressed(e);
         }
     }
 }

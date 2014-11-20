@@ -1,7 +1,9 @@
+
 import java.awt.event.*;
 import javax.swing.*;
 
 public class FraMain extends JFrame {
+    
     Player p;
     PanGame panGame = new PanGame();
     PanMainMenu panMainMenu = new PanMainMenu();
@@ -10,6 +12,7 @@ public class FraMain extends JFrame {
 
     //Name of Frame, Dementions of the frame and other verables about the frame
     public FraMain() {
+          //panGame.setFocusable(true);
         if (hasDrawnPanMainMenu == false) {
             add(panMainMenu);
             hasDrawnPanMainMenu = true;
@@ -17,17 +20,17 @@ public class FraMain extends JFrame {
 
 
         // mouse listener for the escape button on the game pannel
-       /* panGame.btnEsc.addMouseListener(new MouseAdapter() {
-         public void mouseClicked(MouseEvent me) {
-         if (hasDrawnPanInGameMenu == false) {
-         add(panInGameMenu);
-         hasDrawnPanInGameMenu = true;
-         }
+        panGame.btnEsc.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                if (hasDrawnPanInGameMenu == false) {
+                    add(panInGameMenu);
+                    hasDrawnPanInGameMenu = true;
+                }
 
-         panGame.setVisible(false);
-         panInGameMenu.setVisible(true);
-         }
-         });*/
+                panGame.setVisible(false);
+                panInGameMenu.setVisible(true);
+            }
+        });
         panInGameMenu.btnResume.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 panInGameMenu.setVisible(false);

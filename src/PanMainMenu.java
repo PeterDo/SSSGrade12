@@ -19,6 +19,7 @@ public class PanMainMenu extends JPanel {
     Image Menu;
 
     public PanMainMenu() {
+        //setFocusable(true);
         setLayout(null);
         //setBackground(Color.green);
         ImageIcon menu = new ImageIcon("Menu.png");

@@ -21,6 +21,7 @@ public class PanInGameMenu extends JPanel {
     Image inGameMenu;
 
     PanInGameMenu() {
+        //setFocusable(true);
         setLayout(null);
         //setBackground(Color.blue);
         ImageIcon menu = new ImageIcon("InGameMenu.png");
